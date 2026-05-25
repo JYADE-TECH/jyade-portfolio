@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="JYADE — Justine Yuri De Leon. Architectural Drafting & Graphics Design Technology portfolio. Full house planning, structural, electrical, plumbing, renovation, and construction services.">
+  <title>JYADE — Justine Yuri De Leon · Portfolio</title>
+
+  <!-- Favicon placeholder — replace with your own -->
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     NAV
+     ═══════════════════════════════════════════════════════ -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a href="#hero" class="nav-brand" aria-label="JYADE Home">
+    <!-- Replace src with your actual logo path -->
+    <img src="assets/images/logo.png" alt="JYADE monogram" width="28" height="28">
+    JYADE
+  </a>
+
+  <ul class="nav-links" id="nav-menu" role="list">
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+
+  <button class="nav-burger" id="nav-burger"
+          aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+         stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <path d="M3 6h16M3 11h16M3 16h16"/>
+    </svg>
+  </button>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════════════ -->
+<section class="hero" id="hero" aria-label="Introduction">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow" aria-hidden="true">Portfolio · 2025</div>
+
+    <h1 class="hero-title">
+      Justine <em>Yuri</em><br>
+      De Leon
+    </h1>
+
+    <p class="hero-sub">
+      Architectural Drafting &amp; Graphics Design Technology<br>
+      Bulacan State University · Founder, JYADE
+    </p>
+
+    <p class="hero-desc">
+      Designing spaces that endure — from structural planning to architectural vision.
+      I translate ideas into built reality with precision and purpose.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#portfolio" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PORTFOLIO  ← The image system lives here
+     ═══════════════════════════════════════════════════════
+
+     HOW IT WORKS:
+       • Each <article> has  data-carousel="KEY"
+       • KEY must match a key in PORTFOLIO_IMAGES (images.js)
+       • script.js reads that array and builds the full
+         carousel HTML automatically — dots, arrows, counter
+       • To add a new section: duplicate one <article>,
+         change data-section and data-carousel to a new key,
+         add that key to images.js.  Done.
+     ═══════════════════════════════════════════════════════ -->
+<section class="section portfolio-bg" id="portfolio" aria-labelledby="portfolio-heading">
+  <div class="section-inner">
+
+    <!-- Header -->
+    <div class="section-header reveal">
+      <span class="section-index">01</span>
+      <h2 class="section-title" id="portfolio-heading">Selected <em>Works</em></h2>
+    </div>
+    <div class="section-rule reveal"></div>
+
+    <!-- Filter tabs -->
+    <div class="filter-bar reveal" role="tablist" aria-label="Portfolio filter">
+      <button class="filter-tab active" data-filter="all"
+              role="tab" aria-selected="true">All</button>
+      <button class="filter-tab" data-filter="architectural"
+              role="tab" aria-selected="false">Architectural</button>
+      <button class="filter-tab" data-filter="structural"
+              role="tab" aria-selected="false">Structural</button>
+      <button class="filter-tab" data-filter="electrical"
+              role="tab" aria-selected="false">Electrical</button>
+      <button class="filter-tab" data-filter="plumbing"
+              role="tab" aria-selected="false">Plumbing</button>
+      <button class="filter-tab" data-filter="logos"
+              role="tab" aria-selected="false">Logos &amp; Branding</button>
+      <button class="filter-tab" data-filter="graphics"
+              role="tab" aria-selected="false">Graphics</button>
+    </div>
+
+    <!-- ── Architectural ───────────────────────────────────── -->
+    <article class="portfolio-section reveal" data-section="architectural"
+             aria-labelledby="arch-heading">
+      <h3 class="portfolio-section-title" id="arch-heading">
+        Architectural Design
+      </h3>
+      <!--
+        data-carousel="architectural"
+        → script.js will look up PORTFOLIO_IMAGES.architectural in images.js
+        → and build the full slider here automatically
+      -->
+      <div class="carousel-wrap" data-carousel="architectural"></div>
+    </article>
+
+    <!-- ── Structural ──────────────────────────────────────── -->
+    <article class="portfolio-section reveal" data-section="structural"
+             aria-labelledby="struct-heading">
+      <h3 class="portfolio-section-title" id="struct-heading">
+        Structural Planning
+      </h3>
+      <div class="carousel-wrap" data-carousel="structural"></div>
+    </article>
+
+    <!-- ── Electrical ──────────────────────────────────────── -->
+    <article class="portfolio-section reveal" data-section="electrical"
+             aria-labelledby="elec-heading">
+      <h3 class="portfolio-section-title" id="elec-heading">
+        Electrical Layout
+      </h3>
+      <div class="carousel-wrap" data-carousel="electrical"></div>
+    </article>
+
+    <!-- ── Plumbing ────────────────────────────────────────── -->
+    <article class="portfolio-section reveal" data-section="plumbing"
+             aria-labelledby="plumb-heading">
+      <h3 class="portfolio-section-title" id="plumb-heading">
+        Plumbing Design
+      </h3>
+      <div class="carousel-wrap" data-carousel="plumbing"></div>
+    </article>
+
+    <!-- ── Logos & Branding ────────────────────────────────── -->
+    <article class="portfolio-section reveal" data-section="logos"
+             aria-labelledby="logos-heading">
+      <h3 class="portfolio-section-title" id="logos-heading">
+        Logos &amp; Branding
+      </h3>
+      <div class="carousel-wrap" data-carousel="logos"></div>
+    </article>
+
+    <!-- ── Graphics Design ────────────────────────────────── -->
+    <article class="portfolio-section reveal" data-section="graphics"
+             aria-labelledby="graphics-heading">
+      <h3 class="portfolio-section-title" id="graphics-heading">
+        Graphics Design
+      </h3>
+      <div class="carousel-wrap" data-carousel="graphics"></div>
+    </article>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     ABOUT
+     ═══════════════════════════════════════════════════════ -->
+<section class="section about-bg" id="about" aria-labelledby="about-heading">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-index">02</span>
+      <h2 class="section-title" id="about-heading">About <em>the Designer</em></h2>
+    </div>
+    <div class="section-rule reveal"></div>
+
+    <div class="about-grid">
+      <div class="about-body reveal">
+        <p class="about-para">
+          I am <strong>Justine Yuri De Leon</strong>, an Architectural Drafting &amp; Graphics
+          Design Technology student at <strong>Bulacan State University</strong> and the founder
+          of <strong>JYADE</strong> — a full-service design and construction consultancy.
+        </p>
+        <p class="about-para">
+          My work bridges the gap between vision and structure. I believe that every space tells
+          a story — through form, proportion, material, and light. I bring technical precision
+          and creative clarity to every project I take on.
+        </p>
+        <p class="about-para">
+          Whether you need a full house plan, a renovation concept, or detailed structural
+          drawings, I deliver work that is grounded, considered, and built to last.
+        </p>
+      </div>
+
+      <div class="about-stats reveal" aria-label="Quick facts">
+        <div class="about-stat">
+          <div class="about-stat-num">JYADE</div>
+          <div class="about-stat-label">Brand &amp; Company</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">BulSU</div>
+          <div class="about-stat-label">University</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">6+</div>
+          <div class="about-stat-label">Service Disciplines</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">PH</div>
+          <div class="about-stat-label">Philippines-Based</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SERVICES
+     ═══════════════════════════════════════════════════════ -->
+<section class="section services-bg" id="services" aria-labelledby="services-heading">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-index">03</span>
+      <h2 class="section-title" id="services-heading">What <em>JYADE Offers</em></h2>
+    </div>
+    <div class="section-rule reveal"></div>
+
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-num">001</div>
+        <svg class="service-icon" viewBox="0 0 32 32" fill="none"
+             stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <path d="M3 26V12l13-7 13 7v14H3z"/><path d="M12 26V18h8v8"/>
+        </svg>
+        <h3 class="service-title">Architectural Design</h3>
+        <p class="service-desc">Full architectural plans, elevations, and sections. Residential, commercial, and mixed-use projects from concept to construction document.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-num">002</div>
+        <svg class="service-icon" viewBox="0 0 32 32" fill="none"
+             stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <rect x="3" y="3" width="26" height="26" rx="1"/>
+          <path d="M3 13h26M13 3v26"/>
+        </svg>
+        <h3 class="service-title">Structural Planning</h3>
+        <p class="service-desc">Structural system layout, load analysis documentation, and coordination with engineering requirements for safe, buildable designs.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-num">003</div>
+        <svg class="service-icon" viewBox="0 0 32 32" fill="none"
+             stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <circle cx="16" cy="16" r="4"/>
+          <path d="M16 3v3M16 26v3M3 16h3M26 16h3M6.8 6.8l2.1 2.1M23.1 23.1l2.1 2.1M6.8 25.2l2.1-2.1M23.1 8.9l2.1-2.1"/>
+        </svg>
+        <h3 class="service-title">Electrical Layout</h3>
+        <p class="service-desc">Electrical plans including lighting, power distribution, panel schedules, and load computation compliant with the Philippine Electrical Code.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-num">004</div>
+        <svg class="service-icon" viewBox="0 0 32 32" fill="none"
+             stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <path d="M16 3c0 0-7 5.5-7 14a7 7 0 0014 0C23 8.5 16 3 16 3z"/>
+          <path d="M16 13v9"/>
+        </svg>
+        <h3 class="service-title">Plumbing Design</h3>
+        <p class="service-desc">Complete sanitary and plumbing layouts — supply, drainage, and fixture schedules for residential and light commercial projects.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-num">005</div>
+        <svg class="service-icon" viewBox="0 0 32 32" fill="none"
+             stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <path d="M5 27L16 5l11 22H5z"/><path d="M10 20h12"/>
+        </svg>
+        <h3 class="service-title">Renovation Consultancy</h3>
+        <p class="service-desc">Space planning, design documentation, and material specifications for renovation and interior retrofitting projects of any scale.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-num">006</div>
+        <svg class="service-icon" viewBox="0 0 32 32" fill="none"
+             stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+          <rect x="3" y="18" width="7" height="10"/>
+          <rect x="13" y="12" width="7" height="16"/>
+          <rect x="23" y="6" width="7" height="22"/>
+        </svg>
+        <h3 class="service-title">Construction Support</h3>
+        <p class="service-desc">Bill of quantities, material take-offs, site coordination drawings, and as-built documentation to support the construction process.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     CONTACT
+     ═══════════════════════════════════════════════════════ -->
+<section class="section contact-bg" id="contact" aria-labelledby="contact-heading">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <h2 class="contact-heading reveal" id="contact-heading">
+        Let's Build <em>Something</em> Together
+      </h2>
+      <p class="contact-sub reveal">
+        Available for architectural drafting, design consultancy, and construction planning.
+        Based in Bulacan, Philippines — open to remote collaboration.
+      </p>
+      <a href="mailto:justineyuridl@gmail.com" class="contact-email reveal">
+        justineyuridl@gmail.com
+      </a>
+
+      <form class="contact-form reveal" aria-label="Contact form" id="contact-form">
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="field-name">Full Name</label>
+            <input class="form-input" type="text" id="field-name" name="name"
+                   placeholder="Your full name" required autocomplete="name">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="field-email">Email Address</label>
+            <input class="form-input" type="email" id="field-email" name="email"
+                   placeholder="your@email.com" required autocomplete="email">
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="field-project">Project Type</label>
+          <input class="form-input" type="text" id="field-project" name="project"
+                 placeholder="e.g. Residential floor plan, renovation, full house planning…">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="field-message">Message</label>
+          <textarea class="form-textarea" id="field-message" name="message"
+                    placeholder="Tell me about your project, timeline, and goals…"
+                    required></textarea>
+        </div>
+        <button type="submit" class="btn-primary form-submit" id="form-submit">
+          Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════ -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <img src="assets/images/logo.png" alt="" aria-hidden="true" width="26" height="26">
+        JYADE
+      </div>
+      <p class="footer-tagline">
+        Justine Yuri De Leon · Architectural Drafting &amp; Graphics Design Technology ·
+        Bulacan State University
+      </p>
+    </div>
+    <div>
+      <ul class="footer-links" aria-label="Footer navigation">
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <p class="footer-copy">© 2025 JYADE — Justine Yuri De Leon</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPTS — images.js must load BEFORE script.js
+     ═══════════════════════════════════════════════════════ -->
+<script src="images.js"></script>
+<script src="script.js"></script>
+
+<script>
+  // Contact form feedback (no back-end needed for basic deploy)
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('form-submit');
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = 'oklch(52% 0.14 145)';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Send Message';
+      btn.style.background = '';
+      btn.disabled = false;
+      this.reset();
+    }, 4000);
+  });
+</script>
+
+</body>
+</html>
