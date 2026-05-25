@@ -374,23 +374,23 @@
         <div class="form-row">
           <div class="form-field">
             <label class="form-label" for="field-name">Full Name</label>
-            <input class="form-input" type="text" id="field-name" name="name"
+            <input class="form-input" type="text" id="field-name" name="from_name" name="name"
                    placeholder="Your full name" required autocomplete="name">
           </div>
           <div class="form-field">
             <label class="form-label" for="field-email">Email Address</label>
-            <input class="form-input" type="email" id="field-email" name="email"
+            <input class="form-input" type="email" id="field-email" name="from_email" name="email"
                    placeholder="justineyuri.deleon.work@gmail.com" required autocomplete="email">
           </div>
         </div>
         <div class="form-field">
           <label class="form-label" for="field-project">Project Type</label>
-          <input class="form-input" type="text" id="field-project" name="project"
+          <input class="form-input" type="text" id="field-project" name="project_type" name="project"
                  placeholder="e.g. Residential floor plan, renovation, full house planning…">
         </div>
         <div class="form-field">
           <label class="form-label" for="field-message">Message</label>
-          <textarea class="form-textarea" id="field-message" name="message"
+          <textarea class="form-textarea" id="field-message" name="message" name="message"
                     placeholder="Tell me about your project, timeline, and goals…"
                     required></textarea>
         </div>
@@ -440,43 +440,38 @@
 <!-- EmailJS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  // Initialize EmailJS
-  emailjs.init("rJ3_SvDeLwb2GUUxH");
+  (function() {
+    emailjs.init({
+      publicKey: "rJ3_SvDeLwb2GUUxH",
+    });
+  })();
 
   document.getElementById("contact-form").addEventListener("submit", function(e) {
     e.preventDefault();
-    const btn   = document.getElementById("form-submit");
-    const form  = this;
+
+    const btn  = document.getElementById("form-submit");
+    const form = document.getElementById("contact-form");
 
     btn.textContent = "Sending…";
-    btn.disabled = true;
+    btn.disabled    = true;
 
-    const templateParams = {
-      from_name:    form.querySelector("#field-name").value,
-      from_email:   form.querySelector("#field-email").value,
-      project_type: form.querySelector("#field-project").value,
-      message:      form.querySelector("#field-message").value,
-      to_email:     "justineyuri.deleon.work@gmail.com"
-    };
-
-    emailjs.send("service_jyadetech", "template_jyadetech", templateParams)
-      .then(() => {
-        btn.textContent = "Message Sent ✓";
+    emailjs.sendForm("service_jyadetech", "template_jyadetech", form)
+      .then(function() {
+        btn.textContent      = "Message Sent ✓";
         btn.style.background = "oklch(52% 0.14 145)";
         form.reset();
-        setTimeout(() => {
-          btn.textContent = "Send Message";
+        setTimeout(function() {
+          btn.textContent      = "Send Message";
           btn.style.background = "";
-          btn.disabled = false;
+          btn.disabled         = false;
         }, 4000);
-      })
-      .catch((err) => {
-        console.error("EmailJS error:", err);
-        btn.textContent = "Failed — Try Again";
+      }, function(error) {
+        console.error("EmailJS failed:", JSON.stringify(error));
+        btn.textContent      = "Failed — Try Again";
         btn.style.background = "oklch(50% 0.18 25)";
-        btn.disabled = false;
-        setTimeout(() => {
-          btn.textContent = "Send Message";
+        btn.disabled         = false;
+        setTimeout(function() {
+          btn.textContent      = "Send Message";
           btn.style.background = "";
         }, 3000);
       });
