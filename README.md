@@ -66,4 +66,4 @@ architectural: [
 ---
 
 ## 📧 Contact
-Justine Yuri De Leon · justineyuridl@gmail.com
+Justine Yuri De Leon · justineyuri.deleon.work@gmail.com
