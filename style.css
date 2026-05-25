@@ -555,7 +555,10 @@ footer {
 }
 
 
-/* ── Hero profile layout ──────────────────────────────── */
+
+/* ════════════════════════════════════════════════════════════
+   HERO PROFILE — horizontal layout (photo left, text right)
+   ════════════════════════════════════════════════════════════ */
 .hero-profile {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -563,126 +566,101 @@ footer {
   align-items: center;
 }
 
-/* Photo container */
+/* ── Photo ───────────────────────────────────────────────── */
 .hero-photo-wrap {
-  position: relative;
   flex-shrink: 0;
   animation: fadeIn 0.9s var(--ease-out) 0.1s both;
 }
 
 .hero-photo {
-  width: clamp(200px, 22vw, 320px);
-  height: clamp(200px, 22vw, 320px);
+  width: clamp(180px, 20vw, 300px);
+  height: clamp(200px, 22vw, 340px);
   object-fit: cover;
   object-position: top center;
   border-radius: 2px;
   display: block;
-  /* Elegant dark frame */
-  box-shadow:
-    0 0 0 1px oklch(100% 0 0 / 0.08),
-    0 32px 80px oklch(0% 0 0 / 0.6),
-    0 8px 24px oklch(0% 0 0 / 0.4);
-  filter: contrast(1.04) brightness(0.97);
+  /* Subtle shadow so transparent PNG blends into dark bg */
+  filter: drop-shadow(0 24px 60px oklch(0% 0 0 / 0.55))
+          drop-shadow(0 4px 16px oklch(0% 0 0 / 0.35));
 }
 
-/* Facebook badge — sits at bottom-right of photo */
-.fb-badge {
-  position: absolute;
-  bottom: -1rem;
-  right: -1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  background: #1877F2;
-  color: #fff;
-  padding: 0.45rem 0.9rem 0.45rem 0.65rem;
-  border-radius: 100px;
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-  box-shadow: 0 4px 16px oklch(0% 0 0 / 0.4);
-  transition: background 150ms, transform 150ms, box-shadow 150ms;
-  white-space: nowrap;
-}
-.fb-badge:hover {
-  background: #166FE5;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px oklch(0% 0 0 / 0.5);
-}
-.fb-badge:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
-}
-.fb-badge__icon {
-  width: 16px; height: 16px;
-  flex-shrink: 0;
-}
-.fb-badge__text { line-height: 1; }
-
-/* Hero text side */
+/* ── Text side ───────────────────────────────────────────── */
 .hero-text {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
 
-/* Facebook button in actions row */
-.btn-social {
+/* ── Social pills row ────────────────────────────────────── */
+.hero-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.social-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: #1877F2;
-  color: #fff;
-  padding: 0.8rem 1.6rem;
-  border: none;
-  transition: background 150ms, transform 150ms;
-  white-space: nowrap;
+  font-size: 0.65rem;
+  letter-spacing: 0.07em;
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
   text-decoration: none;
+  transition: transform 150ms, filter 150ms, box-shadow 150ms;
+  white-space: nowrap;
+  color: #fff;
 }
-.btn-social:hover { background: #166FE5; transform: translateY(-2px); }
-.btn-social:active { transform: translateY(0); }
-.btn-social:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+.social-pill:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.12);
+  box-shadow: 0 6px 20px oklch(0% 0 0 / 0.4);
+}
+.social-pill:active { transform: translateY(0); }
+.social-pill:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
 }
 
-/* ── Responsive: stack photo above text on mobile ─────── */
-@media (max-width: 768px) {
+.social-pill--fb  { background: #1877F2; }
+.social-pill--tt  { background: #010101; border: 1px solid oklch(100% 0 0 / 0.15); }
+.social-pill--gm  {
+  background: linear-gradient(135deg, #EA4335 0%, #FBBC05 35%, #34A853 65%, #4285F4 100%);
+  font-size: 0.6rem;
+  max-width: 280px;
+}
+.social-pill--gm span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Responsive: stack on mobile ─────────────────────────── */
+@media (max-width: 860px) {
   .hero-profile {
     grid-template-columns: 1fr;
     justify-items: center;
     text-align: center;
-    gap: 2.5rem;
+    gap: 2rem;
   }
   .hero-photo {
-    width: clamp(140px, 45vw, 200px);
-    height: clamp(140px, 45vw, 200px);
-  }
-  .fb-badge {
-    bottom: -0.75rem;
-    right: -0.75rem;
-    font-size: 0.58rem;
-    padding: 0.4rem 0.75rem 0.4rem 0.55rem;
+    width: clamp(130px, 38vw, 200px);
+    height: clamp(145px, 42vw, 225px);
   }
   .hero-text { align-items: center; }
   .hero-eyebrow { justify-content: center; }
   .hero-desc { margin-left: auto; margin-right: auto; }
+  .hero-socials { justify-content: center; }
+  .social-pill--gm span { max-width: 160px; }
 }
 
 @media (max-width: 414px) {
   .hero-photo {
-    width: 130px;
-    height: 130px;
+    width: 120px;
+    height: 135px;
   }
-  .fb-badge { display: none; } /* rely on btn-social in actions row */
 }
 
 /* ════════════════════════════════════════════════════════════
