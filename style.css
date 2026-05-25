@@ -556,32 +556,66 @@ footer {
 
 
 
+
 /* ════════════════════════════════════════════════════════════
-   HERO PROFILE — horizontal layout (photo left, text right)
+   HERO PROFILE — circular photo + horizontal layout
    ════════════════════════════════════════════════════════════ */
+
 .hero-profile {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: clamp(2.5rem, 5vw, 5rem);
+  gap: clamp(3rem, 6vw, 6rem);
   align-items: center;
 }
 
-/* ── Photo ───────────────────────────────────────────────── */
+/* ── Circular photo ring ──────────────────────────────────── */
 .hero-photo-wrap {
   flex-shrink: 0;
-  animation: fadeIn 0.9s var(--ease-out) 0.1s both;
+  animation: fadeIn 0.8s var(--ease-out) 0.1s both;
+}
+
+.hero-photo-ring {
+  /* Outer ring: gold gradient border */
+  width:  clamp(200px, 22vw, 280px);
+  height: clamp(200px, 22vw, 280px);
+  border-radius: 50%;
+  padding: 4px;
+  background: conic-gradient(
+    from 180deg,
+    oklch(72% 0.12 82),
+    oklch(55% 0.09 82),
+    oklch(72% 0.12 82) 60%,
+    oklch(40% 0.06 82) 80%,
+    oklch(72% 0.12 82)
+  );
+  box-shadow:
+    0 0 0 1px oklch(72% 0.12 82 / 0.25),
+    0 24px 64px oklch(0% 0 0 / 0.55),
+    0 4px 16px oklch(0% 0 0 / 0.3);
+  position: relative;
+}
+
+/* Inner white circle — clips the photo */
+.hero-photo-ring::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--ink);
+  z-index: 0;
 }
 
 .hero-photo {
-  width: clamp(180px, 20vw, 300px);
-  height: clamp(200px, 22vw, 340px);
+  width:  100%;
+  height: 100%;
+  border-radius: 50%;
   object-fit: cover;
   object-position: top center;
-  border-radius: 2px;
   display: block;
-  /* Subtle shadow so transparent PNG blends into dark bg */
-  filter: drop-shadow(0 24px 60px oklch(0% 0 0 / 0.55))
-          drop-shadow(0 4px 16px oklch(0% 0 0 / 0.35));
+  position: relative;
+  z-index: 1;
+  /* clip the white bg so it blends seamlessly with dark site */
+  background: #fff;
 }
 
 /* ── Text side ───────────────────────────────────────────── */
@@ -591,7 +625,7 @@ footer {
   gap: 0;
 }
 
-/* ── Social pills row ────────────────────────────────────── */
+/* ── Social pills ────────────────────────────────────────── */
 .hero-socials {
   display: flex;
   flex-wrap: wrap;
@@ -609,35 +643,33 @@ footer {
   padding: 0.5rem 1rem;
   border-radius: 100px;
   text-decoration: none;
+  color: #fff;
   transition: transform 150ms, filter 150ms, box-shadow 150ms;
   white-space: nowrap;
-  color: #fff;
 }
 .social-pill:hover {
   transform: translateY(-2px);
   filter: brightness(1.12);
   box-shadow: 0 6px 20px oklch(0% 0 0 / 0.4);
 }
-.social-pill:active { transform: translateY(0); }
+.social-pill:active  { transform: translateY(0); }
 .social-pill:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
 }
 
-.social-pill--fb  { background: #1877F2; }
-.social-pill--tt  { background: #010101; border: 1px solid oklch(100% 0 0 / 0.15); }
-.social-pill--gm  {
-  background: linear-gradient(135deg, #EA4335 0%, #FBBC05 35%, #34A853 65%, #4285F4 100%);
-  font-size: 0.6rem;
-  max-width: 280px;
+.social-pill--fb { background: #1877F2; }
+.social-pill--tt { background: #111; border: 1px solid oklch(100% 0 0 / 0.18); }
+.social-pill--gm {
+  background: #EA4335;
+  max-width: 320px;
 }
 .social-pill--gm span {
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-/* ── Responsive: stack on mobile ─────────────────────────── */
+/* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 860px) {
   .hero-profile {
     grid-template-columns: 1fr;
@@ -645,22 +677,22 @@ footer {
     text-align: center;
     gap: 2rem;
   }
-  .hero-photo {
-    width: clamp(130px, 38vw, 200px);
-    height: clamp(145px, 42vw, 225px);
+  .hero-photo-ring {
+    width:  clamp(150px, 42vw, 210px);
+    height: clamp(150px, 42vw, 210px);
   }
-  .hero-text { align-items: center; }
-  .hero-eyebrow { justify-content: center; }
-  .hero-desc { margin-left: auto; margin-right: auto; }
-  .hero-socials { justify-content: center; }
-  .social-pill--gm span { max-width: 160px; }
+  .hero-text     { align-items: center; }
+  .hero-eyebrow  { justify-content: center; }
+  .hero-desc     { margin-left: auto; margin-right: auto; }
+  .hero-socials  { justify-content: center; }
 }
 
 @media (max-width: 414px) {
-  .hero-photo {
-    width: 120px;
-    height: 135px;
+  .hero-photo-ring {
+    width:  150px;
+    height: 150px;
   }
+  .social-pill--gm span { max-width: 140px; }
 }
 
 /* ════════════════════════════════════════════════════════════
