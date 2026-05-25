@@ -51,19 +51,20 @@
 
     <div class="hero-profile">
 
-      <!-- Profile Photo — no background, transparent PNG -->
+      <!-- Circular profile photo -->
       <div class="hero-photo-wrap">
-        <img
-          src="assets/images/profile.png"
-          alt="Justine Yuri De Leon"
-          class="hero-photo"
-          width="340" height="340"
-        >
+        <div class="hero-photo-ring">
+          <img
+            src="assets/images/profile.png"
+            alt="Justine Yuri De Leon"
+            class="hero-photo"
+            width="260" height="260"
+          >
+        </div>
       </div>
 
-      <!-- Text content — horizontally aligned with photo -->
+      <!-- Text — horizontally aligned with photo -->
       <div class="hero-text">
-        <div class="hero-eyebrow" aria-hidden="true">Portfolio · 2025</div>
 
         <h1 class="hero-title">
           Justine <em>Yuri</em><br>
@@ -85,36 +86,33 @@
           <a href="#contact" class="btn-ghost">Get in Touch</a>
         </div>
 
-        <!-- Social links row -->
+        <!-- Social pills -->
         <div class="hero-socials" aria-label="Social media links">
 
-          <!-- Facebook -->
           <a href="https://www.facebook.com/share/1YHiEHF6Fi/"
              target="_blank" rel="noopener noreferrer"
              class="social-pill social-pill--fb"
              aria-label="Facebook profile">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true">
               <path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.514c-1.491 0-1.956.93-1.956 1.887v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
             </svg>
             <span>Facebook</span>
           </a>
 
-          <!-- TikTok -->
           <a href="https://www.tiktok.com/@yru.fdl?_r=1&_t=ZS-96eAIrcFxxM"
              target="_blank" rel="noopener noreferrer"
              class="social-pill social-pill--tt"
              aria-label="TikTok profile">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true">
               <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.74a4.85 4.85 0 01-1.01-.05z"/>
             </svg>
             <span>TikTok</span>
           </a>
 
-          <!-- Gmail -->
           <a href="mailto:justineyuri.deleon.work@gmail.com"
              class="social-pill social-pill--gm"
              aria-label="Send email">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true">
               <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
             </svg>
             <span>justineyuri.deleon.work@gmail.com</span>
@@ -439,20 +437,49 @@
 <script src="images.js"></script>
 <script src="script.js"></script>
 
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  // Contact form feedback (no back-end needed for basic deploy)
-  document.getElementById('contact-form').addEventListener('submit', function(e) {
+  // Initialize EmailJS
+  emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+
+  document.getElementById("contact-form").addEventListener("submit", function(e) {
     e.preventDefault();
-    const btn = document.getElementById('form-submit');
-    btn.textContent = 'Message Sent ✓';
-    btn.style.background = 'oklch(52% 0.14 145)';
+    const btn   = document.getElementById("form-submit");
+    const form  = this;
+
+    btn.textContent = "Sending…";
     btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = 'Send Message';
-      btn.style.background = '';
-      btn.disabled = false;
-      this.reset();
-    }, 4000);
+
+    const templateParams = {
+      from_name:    form.querySelector("#field-name").value,
+      from_email:   form.querySelector("#field-email").value,
+      project_type: form.querySelector("#field-project").value,
+      message:      form.querySelector("#field-message").value,
+      to_email:     "justineyuri.deleon.work@gmail.com"
+    };
+
+    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
+      .then(() => {
+        btn.textContent = "Message Sent ✓";
+        btn.style.background = "oklch(52% 0.14 145)";
+        form.reset();
+        setTimeout(() => {
+          btn.textContent = "Send Message";
+          btn.style.background = "";
+          btn.disabled = false;
+        }, 4000);
+      })
+      .catch((err) => {
+        console.error("EmailJS error:", err);
+        btn.textContent = "Failed — Try Again";
+        btn.style.background = "oklch(50% 0.18 25)";
+        btn.disabled = false;
+        setTimeout(() => {
+          btn.textContent = "Send Message";
+          btn.style.background = "";
+        }, 3000);
+      });
   });
 </script>
 
