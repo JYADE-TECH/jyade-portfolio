@@ -51,7 +51,7 @@
 
     <div class="hero-profile">
 
-      <!-- Profile Photo -->
+      <!-- Profile Photo — no background, transparent PNG -->
       <div class="hero-photo-wrap">
         <img
           src="assets/images/profile.png"
@@ -59,23 +59,9 @@
           class="hero-photo"
           width="340" height="340"
         >
-        <!-- Facebook link badge -->
-        <a
-          href="https://www.facebook.com/share/1YHiEHF6Fi/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="fb-badge"
-          aria-label="View Justine Yuri De Leon on Facebook"
-          title="Connect on Facebook"
-        >
-          <svg class="fb-badge__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.514c-1.491 0-1.956.93-1.956 1.887v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
-          </svg>
-          <span class="fb-badge__text">Facebook Profile</span>
-        </a>
       </div>
 
-      <!-- Text content -->
+      <!-- Text content — horizontally aligned with photo -->
       <div class="hero-text">
         <div class="hero-eyebrow" aria-hidden="true">Portfolio · 2025</div>
 
@@ -97,18 +83,43 @@
         <div class="hero-actions">
           <a href="#portfolio" class="btn-primary">View My Work</a>
           <a href="#contact" class="btn-ghost">Get in Touch</a>
-          <a
-            href="https://www.facebook.com/share/1YHiEHF6Fi/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-social"
-            aria-label="Facebook profile"
-          >
-            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+        </div>
+
+        <!-- Social links row -->
+        <div class="hero-socials" aria-label="Social media links">
+
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/share/1YHiEHF6Fi/"
+             target="_blank" rel="noopener noreferrer"
+             class="social-pill social-pill--fb"
+             aria-label="Facebook profile">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
               <path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.514c-1.491 0-1.956.93-1.956 1.887v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
             </svg>
-            Facebook
+            <span>Facebook</span>
           </a>
+
+          <!-- TikTok -->
+          <a href="https://www.tiktok.com/@yru.fdl?_r=1&_t=ZS-96eAIrcFxxM"
+             target="_blank" rel="noopener noreferrer"
+             class="social-pill social-pill--tt"
+             aria-label="TikTok profile">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.74a4.85 4.85 0 01-1.01-.05z"/>
+            </svg>
+            <span>TikTok</span>
+          </a>
+
+          <!-- Gmail -->
+          <a href="mailto:justineyuri.deleon.work@gmail.com"
+             class="social-pill social-pill--gm"
+             aria-label="Send email">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+              <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+            </svg>
+            <span>justineyuri.deleon.work@gmail.com</span>
+          </a>
+
         </div>
       </div>
 
@@ -154,9 +165,7 @@
               role="tab" aria-selected="false">Plumbing</button>
       <button class="filter-tab" data-filter="logos"
               role="tab" aria-selected="false">Logos &amp; Branding</button>
-      <button class="filter-tab" data-filter="graphics"
-              role="tab" aria-selected="false">Graphics</button>
-    </div>
+      </div>
 
     <!-- ── Architectural ───────────────────────────────────── -->
     <article class="portfolio-section reveal" data-section="architectural"
@@ -207,17 +216,7 @@
       </h3>
       <div class="carousel-wrap" data-carousel="logos"></div>
     </article>
-
-    <!-- ── Graphics Design ────────────────────────────────── -->
-    <article class="portfolio-section reveal" data-section="graphics"
-             aria-labelledby="graphics-heading">
-      <h3 class="portfolio-section-title" id="graphics-heading">
-        Graphics Design
-      </h3>
-      <div class="carousel-wrap" data-carousel="graphics"></div>
-    </article>
-
-  </div>
+</div>
 </section>
 
 
@@ -369,7 +368,7 @@
         Available for architectural drafting, design consultancy, and construction planning.
         Based in Bulacan, Philippines — open to remote collaboration.
       </p>
-      <a href="mailto:justineyuridl@gmail.com" class="contact-email reveal">
+      <a href="mailto:justineyuri.deleon.work@gmail.com" class="contact-email reveal">
         justineyuridl@gmail.com
       </a>
 
@@ -383,7 +382,7 @@
           <div class="form-field">
             <label class="form-label" for="field-email">Email Address</label>
             <input class="form-input" type="email" id="field-email" name="email"
-                   placeholder="your@email.com" required autocomplete="email">
+                   placeholder="justineyuri.deleon.work@gmail.com" required autocomplete="email">
           </div>
         </div>
         <div class="form-field">
