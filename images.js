@@ -87,16 +87,6 @@ const PORTFOLIO_IMAGES = {
     }
   ],
 
-  // ── Graphics Design ────────────────────────────────────────────────────────
-  graphics: [
-    {
-      src:     "assets/images/graphics/GraphicsImg1.jpg",
-      title:   "Layout & Publication",
-      caption: "Editorial design · academic project",
-      tag:     "Layout"
-    }
-  ]
-
 };
 
 // Export for script.js
