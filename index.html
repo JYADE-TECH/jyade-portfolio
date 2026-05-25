@@ -438,25 +438,24 @@
 <script src="script.js"></script>
 
 <!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  (function() {
-    emailjs.init({
-      publicKey: "rJ3_SvDeLwb2GUUxH",
-    });
-  })();
-
   document.getElementById("contact-form").addEventListener("submit", function(e) {
     e.preventDefault();
 
     const btn  = document.getElementById("form-submit");
     const form = document.getElementById("contact-form");
+    const data = new FormData(form);
 
     btn.textContent = "Sending…";
     btn.disabled    = true;
 
-    emailjs.sendForm("service_jyadetech", "template_jyadetech", form)
-      .then(function() {
+    fetch("https://formspree.io/f/YOUR_FORMSPREE_ID", {
+      method:  "POST",
+      body:    data,
+      headers: { "Accept": "application/json" }
+    })
+    .then(function(response) {
+      if (response.ok) {
         btn.textContent      = "Message Sent ✓";
         btn.style.background = "oklch(52% 0.14 145)";
         form.reset();
@@ -465,16 +464,22 @@
           btn.style.background = "";
           btn.disabled         = false;
         }, 4000);
-      }, function(error) {
-        console.error("EmailJS failed:", JSON.stringify(error));
-        btn.textContent      = "Failed — Try Again";
-        btn.style.background = "oklch(50% 0.18 25)";
-        btn.disabled         = false;
-        setTimeout(function() {
-          btn.textContent      = "Send Message";
-          btn.style.background = "";
-        }, 3000);
-      });
+      } else {
+        return response.json().then(function(data) {
+          throw new Error(data.error || "Unknown error");
+        });
+      }
+    })
+    .catch(function(err) {
+      console.error("Formspree error:", err);
+      btn.textContent      = "Failed — Try Again";
+      btn.style.background = "oklch(50% 0.18 25)";
+      btn.disabled         = false;
+      setTimeout(function() {
+        btn.textContent      = "Send Message";
+        btn.style.background = "";
+      }, 3000);
+    });
   });
 </script>
 
