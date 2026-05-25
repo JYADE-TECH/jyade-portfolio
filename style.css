@@ -86,8 +86,7 @@ body::before {
   font-size: 1.1rem; letter-spacing: 0.2em;
   text-transform: uppercase; color: var(--gold);
 }
-.nav-brand img { width: 28px; height: 28px; object-fit: contain;
-  filter: brightness(0) invert(1); }
+.nav-brand img { width: 28px; height: 28px; object-fit: contain; }
 
 .nav-links {
   display: flex; list-style: none;
@@ -530,8 +529,7 @@ footer {
   letter-spacing: 0.15em; text-transform: uppercase; color: oklch(45% 0.005 80);
   margin-bottom: 0.4rem;
 }
-.footer-brand img { width: 26px; height: 26px; object-fit: contain;
-  filter: brightness(0) invert(1); opacity: 0.4; }
+.footer-brand img { width: 26px; height: 26px; object-fit: contain; opacity: 0.55; }
 .footer-tagline { font-size: 0.78rem; color: oklch(38% 0.005 80); max-width: 36ch; line-height: 1.6; }
 .footer-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
 .footer-links a {
