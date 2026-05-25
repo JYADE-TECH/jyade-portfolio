@@ -441,7 +441,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
   // Initialize EmailJS
-  emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+  emailjs.init("rJ3_SvDeLwb2GUUxH");
 
   document.getElementById("contact-form").addEventListener("submit", function(e) {
     e.preventDefault();
@@ -459,7 +459,7 @@
       to_email:     "justineyuri.deleon.work@gmail.com"
     };
 
-    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
+    emailjs.send("service_jyadetech", "template_jyadetech", templateParams)
       .then(() => {
         btn.textContent = "Message Sent ✓";
         btn.style.background = "oklch(52% 0.14 145)";
