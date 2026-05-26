@@ -22,6 +22,12 @@ const PORTFOLIO_IMAGES = {
   ],
 
   electrical: [
+       {
+      src:     "assets/images/electrical/ElectricalImg1.jpg",
+      title:   "Two-Storey Residence",
+      caption: "Complete floor plan & elevation · Bulacan, 2024",
+      tag:     "Floor Plan"
+       }
   ],
 
   plumbing: [
