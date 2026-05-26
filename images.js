@@ -37,4 +37,18 @@ const PORTFOLIO_IMAGES = {
   modelling: [
   ],
 
+  // ── Certificates ───────────────────────────────────────────────────────────
+  // Folder: assets/images/certificates/
+  // Each entry = one certificate card
+  // Fields: src, title, issuer, date, tag
+  certificates: [
+    // {
+    //   src:    "assets/images/certificates/CertImg1.jpg",
+    //   title:  "AutoCAD Certified User",
+    //   issuer: "Autodesk",
+    //   date:   "2024",
+    //   tag:    "CAD"
+    // }
+  ]
+
 };
