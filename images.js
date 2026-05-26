@@ -25,14 +25,7 @@ const PORTFOLIO_IMAGES = {
       title:   "Two-Storey Residence",
       caption: "Complete floor plan & elevation · Bulacan, 2024",
       tag:     "Floor Plan"
-    },
-    {
-      src:     "assets/images/architectural/ArchitecturalImg2.jpg",
-      title:   "Commercial Façade Study",
-      caption: "Rendered elevation with material schedule",
-      tag:     "Elevation"
     }
-    // ↓ Add more: copy a block above, paste here, change the values
   ],
 
   // ── Structural ─────────────────────────────────────────────────────────────
@@ -42,12 +35,6 @@ const PORTFOLIO_IMAGES = {
       title:   "Column & Beam Layout",
       caption: "Structural framing plan · RC frame system",
       tag:     "Structural"
-    },
-    {
-      src:     "assets/images/structural/StructuralImg2.jpg",
-      title:   "Foundation Detail",
-      caption: "Footing schedule and reinforcement details",
-      tag:     "Detail"
     }
   ],
 
