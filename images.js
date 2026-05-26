@@ -42,13 +42,13 @@ const PORTFOLIO_IMAGES = {
   // Each entry = one certificate card
   // Fields: src, title, issuer, date, tag
   certificates: [
-    // {
-    //   src:    "assets/images/certificates/CertImg1.jpg",
-    //   title:  "AutoCAD Certified User",
-    //   issuer: "Autodesk",
-    //   date:   "2024",
-    //   tag:    "CAD"
-    // }
+     {
+      src:    "assets/images/certificates/certificateImg1.jpg",
+       title:  "Mini Robot Challenge 2nd Placer",
+       issuer: "La Consolacion University Philippines",
+       date:   "2024",
+       tag:    "Robotics"
+     }
   ]
 
 };
