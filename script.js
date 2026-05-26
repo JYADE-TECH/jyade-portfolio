@@ -1,286 +1,234 @@
-/**
- * JYADE Portfolio — Carousel Engine
- * ─────────────────────────────────────────────────────────────────────────────
- * Reads PORTFOLIO_IMAGES from images.js and auto-builds every carousel.
- * You never touch this file when adding images — only images.js changes.
- * ─────────────────────────────────────────────────────────────────────────────
+/* JYADE Portfolio — script.js
+ * Reads PORTFOLIO_IMAGES from images.js and builds every carousel.
  */
 
-/* ─── State ──────────────────────────────────────────────────────────────── */
-const carouselState = {};   // { sectionKey: { current, total, autoTimer } }
+// ── State ──────────────────────────────────────────────────
+var carousels = {};
 
-/* ─── Build all carousels on DOMContentLoaded ────────────────────────────── */
-document.addEventListener("DOMContentLoaded", () => {
-  // Every [data-carousel] element declares which image array it uses
-  document.querySelectorAll("[data-carousel]").forEach(wrapper => {
-    const key = wrapper.dataset.carousel;
-    const images = PORTFOLIO_IMAGES[key];
+// ── Init on load ───────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", function() {
 
-    if (!images || images.length === 0) {
-      wrapper.innerHTML = `<p class="carousel-empty">No images yet for <strong>${key}</strong>. Add entries to images.js to populate this section.</p>`;
-      return;
-    }
-
-    buildCarousel(wrapper, key, images);
-  });
-
-  // Keyboard navigation
-  document.addEventListener("keydown", handleKeyboard);
-
-  // Pause autoplay when tab is hidden
-  document.addEventListener("visibilitychange", () => {
-    Object.keys(carouselState).forEach(key => {
-      if (document.hidden) pauseAuto(key);
-      else startAuto(key);
-    });
-  });
-});
-
-/* ─── Build a single carousel ────────────────────────────────────────────── */
-function buildCarousel(wrapper, key, images) {
-  const total = images.length;
-
-  // ── Track (slides) ─────────────────────────────────────────────────────
-  const track = document.createElement("div");
-  track.className = "carousel-track";
-  track.setAttribute("role", "list");
-  track.setAttribute("aria-label", `${key} portfolio images`);
-
-  images.forEach((img, i) => {
-    const slide = document.createElement("div");
-    slide.className = "carousel-slide" + (i === 0 ? " active" : "");
-    slide.setAttribute("role", "listitem");
-    slide.setAttribute("aria-hidden", i !== 0 ? "true" : "false");
-    slide.innerHTML = `
-      <div class="slide-inner">
-        <img
-          src="${img.src}"
-          alt="${img.title}"
-          loading="${i === 0 ? 'eager' : 'lazy'}"
-          onerror="this.parentElement.parentElement.classList.add('img-error')"
-        >
-        <div class="slide-overlay">
-          <span class="slide-tag">${img.tag}</span>
-          <h3 class="slide-title">${img.title}</h3>
-          <p class="slide-caption">${img.caption}</p>
-        </div>
-      </div>`;
-    track.appendChild(slide);
-  });
-
-  // ── Arrows (only if more than 1 image) ────────────────────────────────
-  let prevBtn = "", nextBtn = "";
-  if (total > 1) {
-    prevBtn = `<button class="carousel-arrow arrow-prev" data-key="${key}" aria-label="Previous slide" title="Previous">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="15 18 9 12 15 6"/>
-      </svg>
-    </button>`;
-    nextBtn = `<button class="carousel-arrow arrow-next" data-key="${key}" aria-label="Next slide" title="Next">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="9 18 15 12 9 6"/>
-      </svg>
-    </button>`;
+  // Build every carousel
+  var wrappers = document.querySelectorAll("[data-carousel]");
+  for (var i = 0; i < wrappers.length; i++) {
+    initCarousel(wrappers[i]);
   }
 
-  // ── Dots (only if more than 1 image) ──────────────────────────────────
-  let dotsHtml = "";
-  if (total > 1) {
-    const dotItems = images.map((img, i) =>
-      `<button class="carousel-dot${i === 0 ? " active" : ""}"
-              data-key="${key}" data-index="${i}"
-              aria-label="Go to slide ${i + 1}: ${img.title}"
-              aria-current="${i === 0 ? 'true' : 'false'}"
-       ></button>`
-    ).join("");
-    dotsHtml = `<div class="carousel-dots" role="tablist" aria-label="${key} slides">${dotItems}</div>`;
+  // Filter tabs
+  var tabs = document.querySelectorAll(".filter-tab");
+  for (var t = 0; t < tabs.length; t++) {
+    tabs[t].addEventListener("click", onFilterClick);
   }
 
-  // ── Counter ───────────────────────────────────────────────────────────
-  const counter = total > 1
-    ? `<div class="carousel-counter" aria-live="polite" aria-atomic="true">
-         <span class="counter-current">1</span> / <span class="counter-total">${total}</span>
-       </div>`
-    : "";
-
-  // ── Assemble ──────────────────────────────────────────────────────────
-  wrapper.innerHTML = `
-    <div class="carousel-viewport" tabindex="0" data-key="${key}">
-      ${prevBtn}
-      <div class="carousel-track-wrap">${track.outerHTML}</div>
-      ${nextBtn}
-    </div>
-    ${dotsHtml}
-    ${counter}`;
-
-  // Re-query track (it was cloned via outerHTML)
-  const realTrack = wrapper.querySelector(".carousel-track");
-
-  // Init state
-  carouselState[key] = { current: 0, total, wrapper, track: realTrack };
-
-  // Wire events
-  if (total > 1) {
-    wrapper.querySelector(".arrow-prev").addEventListener("click", () => navigate(key, -1));
-    wrapper.querySelector(".arrow-next").addEventListener("click", () => navigate(key,  1));
-    wrapper.querySelectorAll(".carousel-dot").forEach(dot => {
-      dot.addEventListener("click", () => goTo(key, parseInt(dot.dataset.index)));
-    });
-    startAuto(key);
-  }
-
-  // Touch / swipe
-  attachSwipe(wrapper.querySelector(".carousel-viewport"), key);
-}
-
-/* ─── Navigate relative (±1) ─────────────────────────────────────────────── */
-function navigate(key, direction) {
-  const state = carouselState[key];
-  const next = (state.current + direction + state.total) % state.total;
-  goTo(key, next);
-  resetAuto(key);
-}
-
-/* ─── Go to a specific slide ─────────────────────────────────────────────── */
-function goTo(key, index) {
-  const state = carouselState[key];
-  if (index === state.current) return;
-
-  const slides = state.track.querySelectorAll(".carousel-slide");
-  const dots   = state.wrapper.querySelectorAll(".carousel-dot");
-  const counterCurrent = state.wrapper.querySelector(".counter-current");
-
-  // Direction hint for CSS
-  const dir = index > state.current ? "next" : "prev";
-  state.track.dataset.dir = dir;
-
-  slides[state.current].classList.remove("active");
-  slides[state.current].setAttribute("aria-hidden", "true");
-  slides[index].classList.add("active");
-  slides[index].setAttribute("aria-hidden", "false");
-
-  if (dots.length) {
-    dots[state.current].classList.remove("active");
-    dots[state.current].setAttribute("aria-current", "false");
-    dots[index].classList.add("active");
-    dots[index].setAttribute("aria-current", "true");
-  }
-
-  if (counterCurrent) counterCurrent.textContent = index + 1;
-
-  state.current = index;
-}
-
-/* ─── Autoplay ───────────────────────────────────────────────────────────── */
-const AUTO_DELAY = 5000;
-
-function startAuto(key) {
-  const state = carouselState[key];
-  if (!state || state.total <= 1) return;
-  pauseAuto(key); // clear any existing
-  state.autoTimer = setInterval(() => navigate(key, 1), AUTO_DELAY);
-}
-
-function pauseAuto(key) {
-  const state = carouselState[key];
-  if (state && state.autoTimer) {
-    clearInterval(state.autoTimer);
-    state.autoTimer = null;
-  }
-}
-
-function resetAuto(key) {
-  pauseAuto(key);
-  startAuto(key);
-}
-
-/* ─── Pause autoplay on hover ────────────────────────────────────────────── */
-document.addEventListener("mouseover", e => {
-  const vp = e.target.closest(".carousel-viewport");
-  if (vp) pauseAuto(vp.dataset.key);
-});
-document.addEventListener("mouseout", e => {
-  const vp = e.target.closest(".carousel-viewport");
-  if (vp) startAuto(vp.dataset.key);
-});
-
-/* ─── Keyboard navigation ────────────────────────────────────────────────── */
-function handleKeyboard(e) {
-  const focused = document.activeElement;
-  const vp = focused && focused.closest ? focused.closest(".carousel-viewport") : null;
-  if (!vp) return;
-  const key = vp.dataset.key;
-  if (!key || !carouselState[key]) return;
-
-  if (e.key === "ArrowLeft")  { navigate(key, -1); e.preventDefault(); }
-  if (e.key === "ArrowRight") { navigate(key,  1); e.preventDefault(); }
-}
-
-/* ─── Touch / swipe ──────────────────────────────────────────────────────── */
-function attachSwipe(el, key) {
-  let startX = null;
-  el.addEventListener("touchstart", e => { startX = e.touches[0].clientX; }, { passive: true });
-  el.addEventListener("touchend",   e => {
-    if (startX === null) return;
-    const dx = e.changedTouches[0].clientX - startX;
-    if (Math.abs(dx) > 40) navigate(key, dx < 0 ? 1 : -1);
-    startX = null;
-  }, { passive: true });
-}
-
-/* ─── Section filter tabs ────────────────────────────────────────────────── */
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".filter-tab").forEach(tab => {
-    tab.addEventListener("click", () => {
-      const target = tab.dataset.filter;
-
-      // Update tab states
-      document.querySelectorAll(".filter-tab").forEach(t => {
-        t.classList.remove("active");
-        t.setAttribute("aria-selected", "false");
-      });
-      tab.classList.add("active");
-      tab.setAttribute("aria-selected", "true");
-
-      // Show/hide sections
-      document.querySelectorAll(".portfolio-section").forEach(section => {
-        const show = target === "all" || section.dataset.section === target;
-        section.style.display = show ? "block" : "none";
-      });
-    });
-  });
-});
-
-/* ─── Smooth scroll for nav links ────────────────────────────────────────── */
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener("click", e => {
-      const target = document.querySelector(a.getAttribute("href"));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    });
-  });
-
-  // Mobile nav toggle
-  const burger = document.getElementById("nav-burger");
-  const navMenu = document.getElementById("nav-menu");
-  if (burger && navMenu) {
-    burger.addEventListener("click", () => {
-      const open = navMenu.classList.toggle("open");
-      burger.setAttribute("aria-expanded", open);
-    });
-  }
-
-  // Scroll-reveal
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        io.unobserve(entry.target);
+  // Scroll reveal
+  var revealEls = document.querySelectorAll(".reveal");
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        io.unobserve(e.target);
       }
     });
   }, { threshold: 0.08 });
-  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  revealEls.forEach(function(el) { io.observe(el); });
+
+  // Mobile nav
+  var burger = document.getElementById("nav-burger");
+  var menu   = document.getElementById("nav-menu");
+  if (burger && menu) {
+    burger.addEventListener("click", function() {
+      var open = menu.classList.toggle("open");
+      burger.setAttribute("aria-expanded", open);
+    });
+    menu.querySelectorAll("a").forEach(function(a) {
+      a.addEventListener("click", function() {
+        menu.classList.remove("open");
+        burger.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener("click", function(e) {
+      var t = document.querySelector(a.getAttribute("href"));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: "smooth" }); }
+    });
+  });
+});
+
+// ── Build one carousel ─────────────────────────────────────
+function initCarousel(wrapper) {
+  var key    = wrapper.getAttribute("data-carousel");
+  var images = (typeof PORTFOLIO_IMAGES !== "undefined") ? PORTFOLIO_IMAGES[key] : null;
+
+  if (!images || images.length === 0) {
+    wrapper.innerHTML =
+      '<p class="carousel-empty">No images yet for <strong>' + key + '</strong>.' +
+      ' Upload files and add entries to images.js.</p>';
+    return;
+  }
+
+  var total = images.length;
+  var html  = '<div class="carousel-viewport" tabindex="0" id="vp-' + key + '">';
+
+  // Slides
+  html += '<div class="carousel-track" id="track-' + key + '">';
+  for (var i = 0; i < total; i++) {
+    var img = images[i];
+    html += '<div class="carousel-slide' + (i === 0 ? ' active' : '') + '">';
+    html += '<div class="slide-inner">';
+    html += '<img src="' + img.src + '" alt="' + img.title + '" loading="' + (i === 0 ? 'eager' : 'lazy') + '">';
+    html += '<div class="slide-overlay">';
+    html += '<span class="slide-tag">' + img.tag + '</span>';
+    html += '<h3 class="slide-title">' + img.title + '</h3>';
+    html += '<p class="slide-caption">' + img.caption + '</p>';
+    html += '</div></div></div>';
+  }
+  html += '</div>'; // track
+
+  // Arrows
+  if (total > 1) {
+    html += '<button class="carousel-arrow arrow-prev" data-key="' + key + '" aria-label="Previous">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>' +
+      '</button>';
+    html += '<button class="carousel-arrow arrow-next" data-key="' + key + '" aria-label="Next">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>' +
+      '</button>';
+  }
+
+  html += '</div>'; // viewport
+
+  // Dots
+  if (total > 1) {
+    html += '<div class="carousel-dots">';
+    for (var d = 0; d < total; d++) {
+      html += '<button class="carousel-dot' + (d === 0 ? ' active' : '') +
+        '" data-key="' + key + '" data-index="' + d + '" aria-label="Slide ' + (d+1) + '"></button>';
+    }
+    html += '</div>';
+    html += '<div class="carousel-counter"><span class="cc-cur">1</span> / <span class="cc-tot">' + total + '</span></div>';
+  }
+
+  wrapper.innerHTML = html;
+
+  // Store state
+  carousels[key] = { current: 0, total: total };
+
+  // Wire events
+  if (total > 1) {
+    wrapper.querySelector(".arrow-prev").addEventListener("click", function() { move(key, -1); });
+    wrapper.querySelector(".arrow-next").addEventListener("click", function() { move(key,  1); });
+    wrapper.querySelectorAll(".carousel-dot").forEach(function(dot) {
+      dot.addEventListener("click", function() { goTo(key, parseInt(dot.getAttribute("data-index"))); });
+    });
+
+    // Swipe
+    var vp = wrapper.querySelector(".carousel-viewport");
+    var sx = null;
+    vp.addEventListener("touchstart", function(e) { sx = e.touches[0].clientX; }, { passive: true });
+    vp.addEventListener("touchend",   function(e) {
+      if (sx === null) return;
+      var dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) move(key, dx < 0 ? 1 : -1);
+      sx = null;
+    }, { passive: true });
+
+    // Keyboard
+    vp.addEventListener("keydown", function(e) {
+      if (e.key === "ArrowLeft")  { move(key, -1); e.preventDefault(); }
+      if (e.key === "ArrowRight") { move(key,  1); e.preventDefault(); }
+    });
+
+    // Autoplay
+    startAuto(key);
+    vp.addEventListener("mouseenter", function() { stopAuto(key); });
+    vp.addEventListener("mouseleave", function() { startAuto(key); });
+  }
+}
+
+// ── Navigate ───────────────────────────────────────────────
+function move(key, dir) {
+  var c = carousels[key];
+  goTo(key, (c.current + dir + c.total) % c.total);
+}
+
+function goTo(key, index) {
+  var c       = carousels[key];
+  var wrapper = document.querySelector('[data-carousel="' + key + '"]');
+  if (!wrapper || index === c.current) return;
+
+  var slides = wrapper.querySelectorAll(".carousel-slide");
+  var dots   = wrapper.querySelectorAll(".carousel-dot");
+  var counter = wrapper.querySelector(".cc-cur");
+
+  slides[c.current].classList.remove("active");
+  slides[index].classList.add("active");
+
+  if (dots.length) {
+    dots[c.current].classList.remove("active");
+    dots[index].classList.add("active");
+  }
+  if (counter) counter.textContent = index + 1;
+
+  c.current = index;
+}
+
+// ── Autoplay ───────────────────────────────────────────────
+function startAuto(key) {
+  stopAuto(key);
+  carousels[key]._timer = setInterval(function() { move(key, 1); }, 4500);
+}
+function stopAuto(key) {
+  if (carousels[key] && carousels[key]._timer) {
+    clearInterval(carousels[key]._timer);
+    carousels[key]._timer = null;
+  }
+}
+
+// ── Filter tabs ────────────────────────────────────────────
+function onFilterClick() {
+  var target = this.getAttribute("data-filter");
+  document.querySelectorAll(".filter-tab").forEach(function(t) { t.classList.remove("active"); });
+  this.classList.add("active");
+  document.querySelectorAll(".portfolio-section").forEach(function(s) {
+    s.style.display = (target === "all" || s.getAttribute("data-section") === target) ? "block" : "none";
+  });
+}
+
+// ── Contact form (Formspree) ───────────────────────────────
+document.addEventListener("DOMContentLoaded", function() {
+  var form = document.getElementById("contact-form");
+  if (!form) return;
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    var btn  = document.getElementById("form-submit");
+    var data = new FormData(form);
+    btn.textContent = "Sending\u2026";
+    btn.disabled    = true;
+    fetch("https://formspree.io/f/mykvdodn", {
+      method: "POST", body: data, headers: { "Accept": "application/json" }
+    })
+    .then(function(r) {
+      if (r.ok) {
+        btn.textContent      = "Message Sent \u2713";
+        btn.style.background = "#4a7c59";
+        form.reset();
+        setTimeout(function() {
+          btn.textContent      = "Send Message";
+          btn.style.background = "";
+          btn.disabled         = false;
+        }, 4000);
+      } else { throw new Error("failed"); }
+    })
+    .catch(function() {
+      btn.textContent      = "Failed \u2014 Try Again";
+      btn.style.background = "#a0522d";
+      btn.disabled         = false;
+      setTimeout(function() {
+        btn.textContent      = "Send Message";
+        btn.style.background = "";
+      }, 3000);
+    });
+  });
 });
