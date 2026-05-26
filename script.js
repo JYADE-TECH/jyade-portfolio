@@ -246,8 +246,11 @@ function buildCertificates() {
     ? PORTFOLIO_IMAGES.certificates : [];
 
   if (certs.length === 0) {
-    grid.style.display  = "none";
-    if (empty) empty.style.display = "block";
+    grid.style.display = "";
+    if (empty) empty.style.display = "none";
+    grid.innerHTML =
+      '<p class="carousel-empty">No certificates yet for <strong>certificates</strong>.' +
+      ' Upload files and add entries to images.js.</p>';
     return;
   }
 
