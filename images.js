@@ -37,8 +37,4 @@ const PORTFOLIO_IMAGES = {
   modelling: [
   ],
 
-  // ── Logos & Branding ───────────────────────────────────────────────────────
-  logos: [
-  ]
-
 };
