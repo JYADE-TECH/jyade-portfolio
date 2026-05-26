@@ -309,8 +309,13 @@ body::after {
 }
 .hero-rule-text {
   font-family: var(--font-mono); font-size: 0.62rem;
-  letter-spacing: 0.2em; text-transform: uppercase;
+  letter-spacing: 0.15em; text-transform: uppercase;
   color: var(--sienna);
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .hero-rule-text { font-size: 0.54rem; letter-spacing: 0.08em; white-space: normal; }
+  .hero-rule-line { display: none; }
 }
 
 .hero-title {
