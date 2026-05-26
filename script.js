@@ -48,6 +48,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  // Build certificates
+  buildCertificates();
+
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(function(a) {
     a.addEventListener("click", function(e) {
@@ -232,3 +235,70 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 });
+
+// ── Build Certificates ─────────────────────────────────────
+function buildCertificates() {
+  var grid  = document.getElementById("cert-grid");
+  var empty = document.getElementById("cert-empty");
+  if (!grid) return;
+
+  var certs = (typeof PORTFOLIO_IMAGES !== "undefined" && PORTFOLIO_IMAGES.certificates)
+    ? PORTFOLIO_IMAGES.certificates : [];
+
+  if (certs.length === 0) {
+    grid.style.display  = "none";
+    if (empty) empty.style.display = "block";
+    return;
+  }
+
+  grid.style.display  = "";
+  if (empty) empty.style.display = "none";
+
+  var html = "";
+  for (var i = 0; i < certs.length; i++) {
+    var c = certs[i];
+    html += '<div class="cert-card" data-src="' + c.src + '" data-title="' + c.title + ' — ' + c.issuer + '">';
+    html += '<div class="cert-card__img-wrap">';
+    if (c.src) {
+      html += '<img src="' + c.src + '" alt="' + c.title + '" loading="lazy">';
+      html += '<div class="cert-card__view">';
+      html += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+      html += ' View';
+      html += '</div>';
+    } else {
+      html += '<div class="cert-card__img-placeholder">';
+      html += '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="10" width="36" height="28" rx="2"/><path d="M6 18h36M14 14h2M20 14h2"/><path d="M14 26h20M14 31h12"/></svg>';
+      html += '</div>';
+    }
+    html += '</div>'; // img-wrap
+    html += '<div class="cert-card__body">';
+    if (c.tag)    html += '<span class="cert-card__tag">' + c.tag + '</span>';
+    html += '<h3 class="cert-card__title">' + c.title + '</h3>';
+    if (c.issuer) html += '<p class="cert-card__issuer">' + c.issuer + '</p>';
+    if (c.date)   html += '<p class="cert-card__date">' + c.date + '</p>';
+    html += '</div></div>';
+  }
+  grid.innerHTML = html;
+
+  // Wire lightbox on each card
+  grid.querySelectorAll(".cert-card").forEach(function(card) {
+    card.addEventListener("click", function() {
+      openLightbox(card.getAttribute("data-src"), card.getAttribute("data-title"));
+    });
+  });
+}
+
+// ── Lightbox ───────────────────────────────────────────────
+function openLightbox(src, caption) {
+  var lb = document.getElementById("cert-lightbox");
+  if (!lb) return;
+  lb.querySelector(".cert-lightbox__img").src     = src;
+  lb.querySelector(".cert-lightbox__caption").textContent = caption || "";
+  lb.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+  var lb = document.getElementById("cert-lightbox");
+  if (lb) { lb.classList.remove("open"); document.body.style.overflow = ""; }
+}
