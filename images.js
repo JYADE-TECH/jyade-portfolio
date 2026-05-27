@@ -55,7 +55,15 @@ const PORTFOLIO_IMAGES = {
        issuer: "FIRST EDUSPEC INC",
        date:   "2025",
        tag:    "Robotics"
-    }
+    },
+  
+     {
+       src:    "assets/images/certificates/CertImg3.png",
+       title:  "Internship Multiple Awards",
+       issuer: "Sunkist Enterprise",
+       date:   "2025",
+       tag:    "Robotics"
+     }
   ]
 
 };
