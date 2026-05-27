@@ -738,6 +738,7 @@ footer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+  align-items: stretch;
 }
 
 .cert-card {
@@ -750,6 +751,9 @@ footer {
               border-color var(--dur-mid);
   cursor: pointer;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .cert-card::before {
   content: '';
@@ -792,6 +796,10 @@ footer {
 .cert-card__body {
   padding: 1.25rem 1.25rem 1.5rem;
   background: var(--bg-dark);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 .cert-card__tag {
   display: inline-block;
