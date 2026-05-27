@@ -12,7 +12,7 @@
  *   electronics  → assets/images/electronics/
  *   programming  → assets/images/programming/
  *   modelling    → assets/images/modelling/
- *   logos        → assets/images/logos/
+ *   certificates → assets/images/certificates/
  */
 
 const PORTFOLIO_IMAGES = {
@@ -36,40 +36,36 @@ const PORTFOLIO_IMAGES = {
   // ── 3D Modelling ───────────────────────────────────────────────────────────
   modelling: [
     {
-    src:     "assets/images/modelling/ModellingImg1.jpg",
-    title:   "Bungalow 3D Model",
-    caption: "Bungalow 3D Preview · 2026",
-    tag:     "CAD"
+      src:     "assets/images/modelling/ModellingImg1.jpg",
+      title:   "Bungalow 3D Model",
+      caption: "Bungalow 3D Preview · 2026",
+      tag:     "3D Modelling"
     }
   ],
 
   // ── Certificates ───────────────────────────────────────────────────────────
-  // Folder: assets/images/certificates/
-  // Each entry = one certificate card
-  // Fields: src, title, issuer, date, tag
   certificates: [
-     {
-       src:    "assets/images/certificates/CertImg1.png",
-       title:  "Mini Robot Challenge 2nd Placer",
-       issuer: "La Consolacion University Philippines",
-       date:   "2024",
-       tag:    "Robotics"
-     },
-     {
-       src:    "assets/images/certificates/CertImg2.png",
-       title:  "National Robotics Competition",
-       issuer: "FIRST EDUSPEC INC",
-       date:   "2025",
-       tag:    "Robotics"
+    {
+      src:    "assets/images/certificates/CertImg1.png",
+      title:  "Mini Robot Challenge 2nd Placer",
+      issuer: "La Consolacion University Philippines",
+      date:   "2024",
+      tag:    "Robotics"
     },
-  
-     {
-       src:    "assets/images/certificates/CertImg3.png",
-       title:  "Internship Multiple Awards",
-       issuer: "Sunkist Enterprise",
-       date:   "2025",
-       tag:    "Robotics"
-     }
+    {
+      src:    "assets/images/certificates/CertImg2.png",
+      title:  "National Robotics Competition",
+      issuer: "FIRST EDUSPEC INC",
+      date:   "2025",
+      tag:    "Robotics"
+    },
+    {
+      src:    "assets/images/certificates/CertImg3.png",
+      title:  "Internship Multiple Awards",
+      issuer: "Sunkist Enterprise",
+      date:   "2025",
+      tag:    "Robotics"
+    }
   ]
 
 };
