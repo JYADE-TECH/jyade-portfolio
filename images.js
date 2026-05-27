@@ -50,7 +50,7 @@ const PORTFOLIO_IMAGES = {
        tag:    "Robotics"
      },
      {
-       src:    "assets/images/certificates/certImg2.png",
+       src:    "assets/images/certificates/CertImg2.png",
        title:  "National Robotics Competition",
        issuer: "FIRST EDUSPEC INC",
        date:   "2025",
