@@ -43,12 +43,19 @@ const PORTFOLIO_IMAGES = {
   // Fields: src, title, issuer, date, tag
   certificates: [
      {
-      src:    "assets/images/certificates/CertImg1.png",
+       src:    "assets/images/certificates/CertImg1.png",
        title:  "Mini Robot Challenge 2nd Placer",
        issuer: "La Consolacion University Philippines",
        date:   "2024",
        tag:    "Robotics"
-     }
+     },
+     {
+       src:    "assets/images/certificates/certImg2.png",
+       title:  "National Robotics Competition",
+       issuer: "FIRST EDUSPEC INC",
+       date:   "2025",
+       tag:    "Robotics"
+    }
   ]
 
 };
