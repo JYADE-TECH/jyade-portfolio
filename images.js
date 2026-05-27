@@ -35,6 +35,12 @@ const PORTFOLIO_IMAGES = {
 
   // ── 3D Modelling ───────────────────────────────────────────────────────────
   modelling: [
+    {
+    src:     "assets/images/cad/ModellingImg1.jpg",
+    title:   "Bungalow 3D Model",
+    caption: "Bungalow 3D Preview · 2026",
+    tag:     "CAD"
+    }
   ],
 
   // ── Certificates ───────────────────────────────────────────────────────────
