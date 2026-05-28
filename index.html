@@ -420,10 +420,28 @@
 <script src="script.js"></script>
 
 
-<!-- Certificate lightbox -->
-<div class="cert-lightbox" id="cert-lightbox" role="dialog" aria-modal="true" aria-label="Certificate viewer">
+<!-- Project Gallery Overlay -->
+<div class="project-gallery" id="project-gallery" role="dialog" aria-modal="true" aria-label="Project gallery">
+  <div class="gallery-header">
+    <div>
+      <h2 class="gallery-title" id="gallery-title"></h2>
+      <p class="gallery-caption" id="gallery-caption"></p>
+    </div>
+    <button class="gallery-close" onclick="closeGallery()" aria-label="Close gallery">&times;</button>
+  </div>
+  <div class="gallery-grid" id="gallery-grid"></div>
+</div>
+
+<!-- Lightbox -->
+<div class="cert-lightbox" id="cert-lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
   <button class="cert-lightbox__close" onclick="closeLightbox()" aria-label="Close">&times;</button>
-  <img class="cert-lightbox__img" src="" alt="Certificate">
+  <button class="lb-prev" onclick="lbNavigate(-1)" aria-label="Previous image">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <img class="cert-lightbox__img" src="" alt="Project image">
+  <button class="lb-next" onclick="lbNavigate(1)" aria-label="Next image">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
   <p class="cert-lightbox__caption"></p>
 </div>
 
