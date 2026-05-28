@@ -1,59 +1,74 @@
 /**
  * JYADE Portfolio — Image Registry
+ * ─────────────────────────────────────────────────────────────────────────────
+ * NEW PROJECT STRUCTURE:
  *
- * HOW TO ADD AN IMAGE:
- *   1. Upload the file to the correct folder under assets/images/
- *   2. Copy one object block below and fill in your details
- *   3. Commit — the slide appears automatically. No HTML edits needed.
+ * Each section contains PROJECTS.
+ * Each project has:
+ *   - cover  : the image shown on the carousel card
+ *   - title  : project name
+ *   - caption: short description
+ *   - tag    : badge label
+ *   - images : array of ALL photos inside the project gallery
  *
- * SECTIONS & FOLDERS:
- *   cad          → assets/images/cad/
- *   construction → assets/images/construction/
- *   modelling    → assets/images/modelling/
- *   certificates → assets/images/certificates/
+ * HOW TO ADD A NEW PROJECT:
+ *   1. Create a folder: assets/images/construction/project-2/
+ *   2. Upload all your project images into that folder
+ *   3. Add a new project block below with the cover + images list
+ *   4. Commit — done!
+ *
+ * HOW TO ADD MORE IMAGES TO AN EXISTING PROJECT:
+ *   1. Upload the new image to the project folder
+ *   2. Add the src to that project's images array below
+ *   3. Commit
+ * ─────────────────────────────────────────────────────────────────────────────
  */
 
 const PORTFOLIO_IMAGES = {
 
   // ── CAD Operator ───────────────────────────────────────────────────────────
+  // Folder: assets/images/cad/project-1/ , project-2/ etc.
   cad: [
+    // {
+    //   cover:   "assets/images/cad/project-1/CadImg1.jpg",
+    //   title:   "Project Name",
+    //   caption: "Short description · 2025",
+    //   tag:     "CAD",
+    //   images: [
+    //     "assets/images/cad/project-1/CadImg1.jpg",
+    //     "assets/images/cad/project-1/CadImg2.jpg"
+    //   ]
+    // }
   ],
 
   // ── Construction & Renovation ──────────────────────────────────────────────
+  // Folder: assets/images/construction/project-1/ , project-2/ etc.
   construction: [
     {
-      src:     "assets/images/Construction/ConstructionImg1.png",
-      title:   "Home Renovation • Apalit, Pampangga",
-      caption: "Home Renovation • 2026",
-      tag:     "Renovation"
-    },
-    {
-      src:     "assets/images/Construction/ConstructionImg2.png",
-      title:   "Home Renovation • Apalit, Pampangga",
-      caption: "Home Renovation • 2026",
-      tag:     "Renovation"
-    },
-    {
-      src:     "assets/images/Construction/ConstructionImg3.png",
-      title:   "Home Renovation • Apalit, Pampangga",
-      caption: "Home Renovation • 2026",
-      tag:     "Renovation"
-    },
-    {
-      src:     "assets/images/Construction/ConstructionImg4.png",
-      title:   "Home Renovation • Apalit, Pampangga",
-      caption: "Home Renovation • 2026",
-      tag:     "Renovation"
+      cover:   "assets/images/construction/project-1/ConstructionImg1.png",
+      title:   "Project 1",
+      caption: "Construction project · 2025",
+      tag:     "Construction",
+      images: [
+        "assets/images/construction/project-1/ConstructionImg1.png",
+        "assets/images/construction/project-1/ConstructionImg2.png",
+        "assets/images/construction/project-1/ConstructionImg3.png",
+        "assets/images/construction/project-1/ConstructionImg4.png"
+      ]
     }
   ],
 
   // ── 3D Modelling ───────────────────────────────────────────────────────────
+  // Folder: assets/images/modelling/project-1/ etc.
   modelling: [
     {
-      src:     "assets/images/modelling/ModellingImg1.jpg",
+      cover:   "assets/images/modelling/ModellingImg1.jpg",
       title:   "Bungalow 3D Model",
       caption: "Bungalow 3D Preview · 2026",
-      tag:     "3D Modelling"
+      tag:     "3D Modelling",
+      images: [
+        "assets/images/modelling/ModellingImg1.jpg"
+      ]
     }
   ],
 
