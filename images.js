@@ -9,8 +9,6 @@
  * SECTIONS & FOLDERS:
  *   cad          → assets/images/cad/
  *   construction → assets/images/construction/
- *   electronics  → assets/images/electronics/
- *   programming  → assets/images/programming/
  *   modelling    → assets/images/modelling/
  *   certificates → assets/images/certificates/
  */
@@ -21,16 +19,8 @@ const PORTFOLIO_IMAGES = {
   cad: [
   ],
 
-  // ── Construction ───────────────────────────────────────────────────────────
+  // ── Construction & Renovation ──────────────────────────────────────────────
   construction: [
-  ],
-
-  // ── Electronics ────────────────────────────────────────────────────────────
-  electronics: [
-  ],
-
-  // ── Programming ────────────────────────────────────────────────────────────
-  programming: [
   ],
 
   // ── 3D Modelling ───────────────────────────────────────────────────────────
@@ -50,21 +40,21 @@ const PORTFOLIO_IMAGES = {
       title:  "Mini Robot Challenge 2nd Placer",
       issuer: "La Consolacion University Philippines",
       date:   "2024",
-      tag:    "Robotics"
+      tag:    "Award"
     },
     {
       src:    "assets/images/certificates/CertImg2.png",
       title:  "National Robotics Competition",
       issuer: "FIRST EDUSPEC INC",
       date:   "2025",
-      tag:    "Robotics"
+      tag:    "Award"
     },
     {
       src:    "assets/images/certificates/CertImg3.png",
       title:  "Internship Multiple Awards",
       issuer: "Sunkist Enterprise",
       date:   "2025",
-      tag:    "Robotics"
+      tag:    "Award"
     }
   ]
 
