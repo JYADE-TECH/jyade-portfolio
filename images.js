@@ -21,6 +21,30 @@ const PORTFOLIO_IMAGES = {
 
   // ── Construction & Renovation ──────────────────────────────────────────────
   construction: [
+    {
+      src:     "assets/images/Construction/ConstructionImg1.jpg",
+      title:   "Home Renovation • Apalit, Pampangga",
+      caption: "Home Renovation • 2026",
+      tag:     "Renovation"
+    },
+    {
+      src:     "assets/images/Construction/ConstructionImg2.jpg",
+      title:   "Home Renovation • Apalit, Pampangga",
+      caption: "Home Renovation • 2026",
+      tag:     "Renovation"
+    },
+    {
+      src:     "assets/images/Construction/ConstructionImg3.jpg",
+      title:   "Home Renovation • Apalit, Pampangga",
+      caption: "Home Renovation • 2026",
+      tag:     "Renovation"
+    },
+    {
+      src:     "assets/images/Construction/ConstructionImg4.jpg",
+      title:   "Home Renovation • Apalit, Pampangga",
+      caption: "Home Renovation • 2026",
+      tag:     "Renovation"
+    }
   ],
 
   // ── 3D Modelling ───────────────────────────────────────────────────────────
