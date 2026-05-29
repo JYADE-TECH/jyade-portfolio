@@ -1051,6 +1051,9 @@ footer {
   max-width: 88vw; max-height: 82vh;
   object-fit: contain; border-radius: 2px;
   box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: opacity 0.2s;
 }
 .cert-lightbox__close {
   position: absolute; top: 1.25rem; right: 1.25rem;
