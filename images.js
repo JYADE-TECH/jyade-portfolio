@@ -46,8 +46,8 @@ const PORTFOLIO_IMAGES = {
   construction: [
     {
       cover:   "assets/images/construction/project-1/ConstructionImg1.png",
-      title:   "Project 1",
-      caption: "Construction project · 2025",
+      title:   "Apalit Pampanga, Home Renovation",
+      caption: "Renovation Project · 2025",
       tag:     "Construction",
       images: [
         "assets/images/construction/project-1/ConstructionImg1.png",
